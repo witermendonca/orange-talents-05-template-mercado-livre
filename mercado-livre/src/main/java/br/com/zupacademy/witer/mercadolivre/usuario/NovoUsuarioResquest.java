@@ -4,10 +4,13 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import br.com.zupacademy.witer.mercadolivre.validacao.UniqueValue;
+
 public class NovoUsuarioResquest {
 
 	@Email
 	@NotBlank
+	@UniqueValue(domainClass = Usuario.class, fieldName = "loginEmail", message = "E-mail com usuário já cadastrado.")
 	private String loginEmail;
 
 	@NotBlank
@@ -20,7 +23,7 @@ public class NovoUsuarioResquest {
 	}
 
 	public Usuario toModel() {
-		return new Usuario(loginEmail, senha);
+		return new Usuario(loginEmail, new SenhaLimpa(senha));
 	}
 
 }

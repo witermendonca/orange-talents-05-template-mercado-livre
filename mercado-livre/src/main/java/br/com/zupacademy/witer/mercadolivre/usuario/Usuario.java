@@ -12,7 +12,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 
 @Entity
 @Table(name = "tb_usuario")
@@ -37,9 +38,11 @@ public class Usuario {
 	public Usuario() {
 	}
 
-	public Usuario(@Email @NotBlank String loginEmail, @NotBlank @Size(min = 6) String senha) {
+	public Usuario(@Email @NotBlank String loginEmail, @NotBlank @Size(min = 6) SenhaLimpa senhaLimpa) {
+		Assert.isTrue(StringUtils.hasLength(loginEmail), "LoginEmail não pode ser em branco");
+		Assert.notNull(senhaLimpa, "O objeto do tipo SenhaLimpa nao pode ser nulo");
 		this.loginEmail = loginEmail;
-		this.senha = new BCryptPasswordEncoder().encode(senha);
+		this.senha = senhaLimpa.hash();
 	}
 
 }
