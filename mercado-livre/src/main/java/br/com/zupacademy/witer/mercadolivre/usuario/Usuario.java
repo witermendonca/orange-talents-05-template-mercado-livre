@@ -45,4 +45,16 @@ public class Usuario {
 		this.senha = senhaLimpa.hash();
 	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public String getLoginEmail() {
+		return loginEmail;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
 }

@@ -1,9 +1,12 @@
 package br.com.zupacademy.witer.mercadolivre.usuario;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,4 +32,11 @@ public class UsuarioController {
 
 		return ResponseEntity.ok().build();
 	}
+	
+//	@GetMapping
+//	@Transactional
+//	public ResponseEntity<List<Usuario>> listaUsuarios() {
+//
+//		return ResponseEntity.ok(usuarioRepository.findAll());
+//	}
 }
