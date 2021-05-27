@@ -66,6 +66,9 @@ public class Produto {
 	@ManyToOne
 	private Usuario usuario;
 
+	@OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
+	private Set<ImagemProduto> imagens = new HashSet<>();
+
 	@Deprecated
 	public Produto() {
 	}
@@ -84,5 +87,55 @@ public class Produto {
 		this.categoria = categoria;
 		this.usuario = usuario;
 	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Produto other = (Produto) obj;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		return true;
+	}
+
+	public void associaImagens(Set<String> links) {
+		Set<ImagemProduto> imagens = links.stream().map(link -> new ImagemProduto(link, this))
+				.collect(Collectors.toSet());
+
+		this.imagens.addAll(imagens);
+	}
+
+	@Override
+	public String toString() {
+		return "Produto [id=" + id + ", nome=" + nome + ", preco=" + preco + ", qtdDisponivel=" + qtdDisponivel
+				+ ", descricao=" + descricao + ", instanteCadastro=" + instanteCadastro + ", caracteristicas="
+				+ caracteristicas + ", categoria=" + categoria + ", usuario=" + usuario + ", imagens=" + imagens + "]";
+	}
+
+	public boolean pertenceAoUsuario(Usuario possivelDono) {
+		return this.usuario.equals(possivelDono);
+	}
+//	public boolean pertenceAoUsuario(Usuario possivelDono) {
+//		return this.dono.equals(possivelDono);
+//	}
 
 }
