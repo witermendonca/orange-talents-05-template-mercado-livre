@@ -2,8 +2,10 @@ package br.com.zupacademy.witer.mercadolivre.produto;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -63,13 +65,6 @@ public class NovoProdutoRequest {
 		this.loginUsuario = loginUsuario;
 	}
 
-	@Override
-	public String toString() {
-		return "NovoProdutoRequest [nome=" + nome + ", preco=" + preco + ", qtdDisponivel=" + qtdDisponivel
-				+ ", descricao=" + descricao + ", caracteristica=" + caracteristica + ", idCategoria=" + idCategoria
-				+ ", loginUsuario=" + loginUsuario + "]";
-	}
-
 	public List<NovaCaracteristicaRequest> getCaracteristica() {
 		return caracteristica;
 	}
@@ -84,6 +79,20 @@ public class NovoProdutoRequest {
 		Optional<Usuario> usuarioLogado = usarioRepository.findByLoginEmail(loginUsuario);
 
 		return new Produto(nome, preco, qtdDisponivel, descricao, caracteristica, categoria, usuarioLogado.get());
+	}
+
+	public Set<String> caracteristicasIguais() {
+		HashSet<String> nomesIguais = new HashSet<>();
+		HashSet<String> resultados = new HashSet<>();
+		// 1
+		for (NovaCaracteristicaRequest caracteristicas : caracteristica) {
+			String nome = caracteristicas.getNomeCaracteristica();
+			// 1
+			if (!nomesIguais.add(nome)) {
+				resultados.add(nome);
+			}
+		}
+		return resultados;
 	}
 
 }
