@@ -124,18 +124,8 @@ public class Produto {
 		this.imagens.addAll(imagens);
 	}
 
-	@Override
-	public String toString() {
-		return "Produto [id=" + id + ", nome=" + nome + ", preco=" + preco + ", qtdDisponivel=" + qtdDisponivel
-				+ ", descricao=" + descricao + ", instanteCadastro=" + instanteCadastro + ", caracteristicas="
-				+ caracteristicas + ", categoria=" + categoria + ", usuario=" + usuario + ", imagens=" + imagens + "]";
-	}
-
 	public boolean pertenceAoUsuario(Usuario possivelDono) {
 		return this.usuario.equals(possivelDono);
 	}
-//	public boolean pertenceAoUsuario(Usuario possivelDono) {
-//		return this.dono.equals(possivelDono);
-//	}
 
 }
