@@ -1,4 +1,4 @@
-package br.com.zupacademy.witer.mercadolivre.produto;
+package br.com.zupacademy.witer.mercadolivre.produto.imagem;
 
 import java.util.List;
 import java.util.Set;

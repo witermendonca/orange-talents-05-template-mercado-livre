@@ -1,4 +1,4 @@
-package br.com.zupacademy.witer.mercadolivre.produto;
+package br.com.zupacademy.witer.mercadolivre.produto.imagem;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +11,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.URL;
+
+import br.com.zupacademy.witer.mercadolivre.produto.Produto;
 
 @Entity
 @Table(name = "tb_imagem_produto")
@@ -68,6 +70,10 @@ public class ImagemProduto {
 		} else if (!produto.equals(other.produto))
 			return false;
 		return true;
+	}
+
+	public String getLink() {
+		return link;
 	}
 
 }

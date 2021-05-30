@@ -4,7 +4,9 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.OptionalDouble;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
@@ -23,6 +25,11 @@ import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 
 import br.com.zupacademy.witer.mercadolivre.categoria.Categoria;
+import br.com.zupacademy.witer.mercadolivre.opiniao.Opiniao;
+import br.com.zupacademy.witer.mercadolivre.pergunta.Pergunta;
+import br.com.zupacademy.witer.mercadolivre.produto.caracteristica.Caracteristica;
+import br.com.zupacademy.witer.mercadolivre.produto.caracteristica.NovaCaracteristicaRequest;
+import br.com.zupacademy.witer.mercadolivre.produto.imagem.ImagemProduto;
 import br.com.zupacademy.witer.mercadolivre.usuario.Usuario;
 
 @Entity
@@ -69,6 +76,12 @@ public class Produto {
 	@OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
 	private Set<ImagemProduto> imagens = new HashSet<>();
 
+	@OneToMany(mappedBy = "produto")
+	private Set<Pergunta> perguntas = new HashSet<>();
+
+	@OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
+	private Set<Opiniao> opinioes = new HashSet<>();
+
 	@Deprecated
 	public Produto() {
 	}
@@ -86,10 +99,6 @@ public class Produto {
 				.collect(Collectors.toSet()));
 		this.categoria = categoria;
 		this.usuario = usuario;
-	}
-
-	public Usuario getUsuario() {
-		return usuario;
 	}
 
 	@Override
@@ -126,6 +135,57 @@ public class Produto {
 
 	public boolean pertenceAoUsuario(Usuario possivelDono) {
 		return this.usuario.equals(possivelDono);
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public BigDecimal getPreco() {
+		return preco;
+	}
+
+	public Integer getQtdDisponivel() {
+		return qtdDisponivel;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public Set<Caracteristica> getCaracteristicas() {
+		return caracteristicas;
+	}
+
+	public Set<ImagemProduto> getImagens() {
+		return imagens;
+	}
+
+	public Set<Pergunta> getPerguntas() {
+		return perguntas;
+	}
+
+	public Set<Opiniao> getOpinioes() {
+		return opinioes;
+	}
+
+	public <T> Set<T> mapeiaOpinioes(Function<Opiniao, T> funcaoMapeadora) {
+		return this.opinioes.stream().map(funcaoMapeadora).collect(Collectors.toSet());
+	}
+
+	// Media das notas de produto
+	public double media() {
+		Set<Integer> notas = mapeiaOpinioes(opiniao -> opiniao.getNota());
+		OptionalDouble possivelMedia = notas.stream().mapToInt(nota -> nota).average();
+		return possivelMedia.orElse(0.0);
 	}
 
 }

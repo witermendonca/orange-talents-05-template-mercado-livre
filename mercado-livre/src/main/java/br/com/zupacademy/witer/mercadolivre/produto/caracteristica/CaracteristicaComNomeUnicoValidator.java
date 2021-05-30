@@ -1,10 +1,12 @@
-package br.com.zupacademy.witer.mercadolivre.produto;
+package br.com.zupacademy.witer.mercadolivre.produto.caracteristica;
 
 import java.util.Set;
 
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+
+import br.com.zupacademy.witer.mercadolivre.produto.NovoProdutoRequest;
 
 @Component
 public class CaracteristicaComNomeUnicoValidator implements Validator {

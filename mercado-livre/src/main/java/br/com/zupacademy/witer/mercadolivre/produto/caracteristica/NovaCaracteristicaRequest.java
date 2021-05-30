@@ -1,8 +1,10 @@
-package br.com.zupacademy.witer.mercadolivre.produto;
+package br.com.zupacademy.witer.mercadolivre.produto.caracteristica;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import br.com.zupacademy.witer.mercadolivre.produto.Produto;
 
 public class NovaCaracteristicaRequest {
 

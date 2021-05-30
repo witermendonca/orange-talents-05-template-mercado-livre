@@ -16,6 +16,7 @@ import javax.validation.constraints.Size;
 
 import br.com.zupacademy.witer.mercadolivre.categoria.Categoria;
 import br.com.zupacademy.witer.mercadolivre.categoria.CategoriaRepository;
+import br.com.zupacademy.witer.mercadolivre.produto.caracteristica.NovaCaracteristicaRequest;
 import br.com.zupacademy.witer.mercadolivre.usuario.Usuario;
 import br.com.zupacademy.witer.mercadolivre.usuario.UsuarioRepository;
 import br.com.zupacademy.witer.mercadolivre.validacao.IdExistente;

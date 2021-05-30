@@ -95,4 +95,8 @@ public class Pergunta {
 		return produto.getUsuario();
 	}
 
+	public String getTitulo() {
+		return titulo;
+	}
+
 }

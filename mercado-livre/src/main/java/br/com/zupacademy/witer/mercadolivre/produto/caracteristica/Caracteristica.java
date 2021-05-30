@@ -1,4 +1,4 @@
-package br.com.zupacademy.witer.mercadolivre.produto;
+package br.com.zupacademy.witer.mercadolivre.produto.caracteristica;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +9,8 @@ import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import br.com.zupacademy.witer.mercadolivre.produto.Produto;
 
 @Entity
 @Table(name = "tb_Caracteristica_prod")
@@ -72,6 +74,14 @@ public class Caracteristica {
 		} else if (!produto.equals(other.produto))
 			return false;
 		return true;
+	}
+
+	public String getNomeCaracteristica() {
+		return nomeCaracteristica;
+	}
+
+	public String getDescricaoCaracteristica() {
+		return descricaoCaracteristica;
 	}
 
 }

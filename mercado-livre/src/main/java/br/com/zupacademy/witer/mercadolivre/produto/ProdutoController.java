@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import br.com.zupacademy.witer.mercadolivre.categoria.CategoriaRepository;
+import br.com.zupacademy.witer.mercadolivre.produto.caracteristica.CaracteristicaComNomeUnicoValidator;
+import br.com.zupacademy.witer.mercadolivre.produto.imagem.NovaImagemRequest;
+import br.com.zupacademy.witer.mercadolivre.produto.imagem.UploaderFake;
 import br.com.zupacademy.witer.mercadolivre.usuario.Usuario;
 import br.com.zupacademy.witer.mercadolivre.usuario.UsuarioRepository;
 
@@ -67,7 +70,7 @@ public class ProdutoController {
 
 //		Usuario dono = usuarioRepository.findByLoginEmail(produto.get().getUsuario().getLoginEmail()).get();
 
-		Usuario dono = usuarioRepository.findByLoginEmail("witer@zup.com.br").get();
+		Usuario dono = usuarioRepository.findByLoginEmail("witer_mendonca@zup.com.br").get();
 
 		if (produto.isEmpty()) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Id produto inválido.");
@@ -81,6 +84,6 @@ public class ProdutoController {
 
 		produtoRepository.save(produto.get());
 
-		return ResponseEntity.ok(produto.toString());
+		return ResponseEntity.ok(links);
 	}
 }
