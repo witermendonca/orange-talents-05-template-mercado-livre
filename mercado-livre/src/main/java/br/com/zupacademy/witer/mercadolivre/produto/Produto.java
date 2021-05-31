@@ -24,6 +24,8 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 
+import org.springframework.util.Assert;
+
 import br.com.zupacademy.witer.mercadolivre.categoria.Categoria;
 import br.com.zupacademy.witer.mercadolivre.opiniao.Opiniao;
 import br.com.zupacademy.witer.mercadolivre.pergunta.Pergunta;
@@ -186,6 +188,19 @@ public class Produto {
 		Set<Integer> notas = mapeiaOpinioes(opiniao -> opiniao.getNota());
 		OptionalDouble possivelMedia = notas.stream().mapToInt(nota -> nota).average();
 		return possivelMedia.orElse(0.0);
+	}
+
+	public boolean abateEstoque(@Positive Integer quantidade) {
+
+		Assert.isTrue(quantidade > 0, "A quantidade deve ser maior que zero para abater o estoque " + quantidade);
+
+		if (quantidade <= this.qtdDisponivel) {
+			this.qtdDisponivel -= quantidade;
+			return true;
+		}
+
+		return false;
+
 	}
 
 }
